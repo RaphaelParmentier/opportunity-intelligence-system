@@ -1,0 +1,17 @@
+[
+  {
+    "source": "manual",
+    "source_url": "https://example.com/healthtech-ai-consultant",
+    "raw_text": "Nous recherchons un Consultant IA senior pour accompagner des projets de transformation data et intelligence artificielle dans le secteur santé / biotech. Missions : cadrage de cas d’usage GenAI, prototypage avec Python, accompagnement métier, ateliers clients, vulgarisation technique. Profil : 3 à 5 ans d’expérience, bonne maîtrise du machine learning, LLM, API, data science. Poste hybride basé à Paris, 2 jours de télétravail. CDI. Salaire entre 55000 et 70000 euros."
+  },
+  {
+    "source": "manual",
+    "source_url": "https://example.com/data-analyst-retail",
+    "raw_text": "Retail company is hiring a junior Data Analyst for reporting, dashboards and Excel automation. Main tasks include KPI monitoring, SQL queries and Power BI reports. On-site position, no remote work. Permanent contract. Salary range: 35000-42000 EUR."
+  },
+  {
+    "source": "manual",
+    "source_url": "https://example.com/ai-trainer",
+    "raw_text": "Organisme de formation recherche un formateur IA et Data Science pour concevoir et animer des cours sur l’intelligence artificielle générative, Python, machine learning et analyse de données. Mission freelance, possibilité remote, public master et professionnels en reconversion."
+  }
+]
