@@ -1,3 +1,5 @@
+import re
+
 from backend.app.core.taxonomies import (
     CONTRACT_TYPE_ALIASES,
     DOMAIN_ALIASES,
@@ -14,6 +16,14 @@ def normalize_text(value: str | None) -> str:
     return value.lower().strip()
 
 
+def alias_matches_text(alias: str, text: str) -> bool:
+    normalized_alias = re.escape(alias.lower().strip())
+
+    pattern = rf"(?<![a-zA-ZÀ-ÿ0-9]){normalized_alias}(?![a-zA-ZÀ-ÿ0-9])"
+
+    return re.search(pattern, text) is not None
+
+
 def match_alias(value: str | None, alias_mapping: dict[str, list[str]]) -> str | None:
     normalized_value = normalize_text(value)
 
@@ -22,7 +32,7 @@ def match_alias(value: str | None, alias_mapping: dict[str, list[str]]) -> str |
 
     for canonical_value, aliases in alias_mapping.items():
         for alias in aliases:
-            if alias.lower() in normalized_value:
+            if alias_matches_text(alias, normalized_value):
                 return canonical_value
 
     return None

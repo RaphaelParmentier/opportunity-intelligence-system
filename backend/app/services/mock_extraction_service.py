@@ -4,7 +4,7 @@ from backend.app.schemas.opportunity import Opportunity
 
 
 def extract_salary(raw_text: str) -> tuple[float | None, float | None]:
-    numbers = re.findall(r"\b\d{5,6}\b", raw_text.replace(" ", ""))
+    numbers = re.findall(r"\b\d{5,6}\b", raw_text)
 
     if len(numbers) >= 2:
         return float(numbers[0]), float(numbers[1])
