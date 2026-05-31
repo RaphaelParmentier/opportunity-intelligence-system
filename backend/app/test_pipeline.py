@@ -2,7 +2,9 @@ import json
 from pathlib import Path
 
 from backend.app.schemas.user_profile import UserProfile
-from backend.app.services.mock_extraction_service import mock_extract_opportunity
+from backend.app.services.ollama_extraction_service import (
+    extract_opportunity_with_ollama,
+)
 from backend.app.services.rule_based_scoring_service import score_opportunity
 
 
@@ -56,7 +58,7 @@ def main() -> None:
     user_profile = build_default_user_profile()
 
     for sample in samples:
-        opportunity = mock_extract_opportunity(
+        opportunity = extract_opportunity_with_ollama(
             source=sample["source"],
             source_url=sample.get("source_url"),
             raw_text=sample["raw_text"],
