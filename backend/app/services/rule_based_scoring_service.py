@@ -74,7 +74,19 @@ def score_opportunity(
 ) -> ScoringResult:
     text = f"{opportunity.title} {opportunity.description}".lower()
 
-    normalized_role = normalize_role(opportunity.title)
+    role_detection_text = " ".join(
+        [
+            opportunity.title or "",
+            opportunity.description or "",
+            " ".join(opportunity.domains),
+            " ".join(opportunity.skills),
+            " ".join(opportunity.tools),
+            " ".join(opportunity.key_missions),
+            " ".join(opportunity.candidate_profile),
+        ]
+    )
+
+    normalized_role = normalize_role(role_detection_text)
     normalized_domains = normalize_many(
         [opportunity.description],
         DOMAIN_ALIASES,
