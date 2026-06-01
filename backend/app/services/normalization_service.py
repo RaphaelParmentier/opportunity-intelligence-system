@@ -62,6 +62,21 @@ def normalize_many(values: list[str], alias_mapping: dict[str, list[str]]) -> li
     normalized_values = []
 
     for value in values:
+        normalized_value = normalize_text(value)
+
+        if not normalized_value:
+            continue
+
+        for canonical_value, aliases in alias_mapping.items():
+            for alias in aliases:
+                if alias_matches_text(alias, normalized_value):
+                    if canonical_value not in normalized_values:
+                        normalized_values.append(canonical_value)
+                    break
+
+    return normalized_values
+
+    for value in values:
         normalized = match_alias(value, alias_mapping)
 
         if normalized and normalized not in normalized_values:
