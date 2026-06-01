@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class Opportunity(BaseModel):
@@ -23,6 +23,17 @@ class Opportunity(BaseModel):
     salary_max: Optional[float] = None
 
     seniority_level: Optional[str] = None
+
+    from pydantic import Field
+
+    domains: list[str] = Field(default_factory=list)
+    skills: list[str] = Field(default_factory=list)
+    tools: list[str] = Field(default_factory=list)
+
+    key_missions: list[str] = Field(default_factory=list)
+    candidate_profile: list[str] = Field(default_factory=list)
+
+    summary: str | None = None
 
     description: str
 

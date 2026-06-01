@@ -11,6 +11,10 @@ from backend.app.services.normalization_service import (
 )
 
 
+def score_domain(opportunity: Opportunity, domain: str) -> float:
+    return 100.0 if domain in opportunity.domains else 0.0
+
+
 def score_presence(text: str, aliases: list[str], high_score: float = 100.0) -> float:
     normalized_text = text.lower()
 
@@ -78,29 +82,29 @@ def score_opportunity(
     normalized_seniority = normalize_seniority(opportunity.seniority_level)
     normalized_contract = normalize_contract_type(opportunity.contract_type)
 
-    ai_score = score_presence(
-        text,
-        DOMAIN_ALIASES["artificial_intelligence"],
+    ai_score = score_domain(
+        opportunity,
+        "artificial_intelligence",
     )
 
-    data_score = score_presence(
-        text,
-        DOMAIN_ALIASES["data_science"],
+    data_score = score_domain(
+        opportunity,
+        "data_science",
     )
 
-    healthcare_score = score_presence(
-        text,
-        DOMAIN_ALIASES["healthcare"],
+    healthcare_score = score_domain(
+        opportunity,
+        "healthcare",
     )
 
-    teaching_score = score_presence(
-        text,
-        DOMAIN_ALIASES["education"],
+    teaching_score = score_domain(
+        opportunity,
+        "education",
     )
 
-    consulting_score = score_presence(
-        text,
-        DOMAIN_ALIASES["consulting"],
+    consulting_score = score_domain(
+        opportunity,
+        "consulting",
     )
 
     remote_score = score_remote(opportunity, user_profile)
@@ -130,7 +134,7 @@ def score_opportunity(
 
     explanation = (
         f"Normalized role={normalized_role}, "
-        f"domains={normalized_domains}, "
+        f"domains={opportunity.domains}, "
         f"seniority={normalized_seniority}, "
         f"contract={normalized_contract}."
     )

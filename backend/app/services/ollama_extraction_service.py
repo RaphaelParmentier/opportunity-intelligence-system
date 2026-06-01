@@ -104,6 +104,12 @@ def extract_opportunity_with_ollama(
         salary_min=extracted.salary_min,
         salary_max=extracted.salary_max,
         seniority_level=extracted.seniority_level,
+        domains=extracted.domains,
+        skills=extracted.skills,
+        tools=extracted.tools,
+        summary=extracted.summary,
+        key_missions=extracted.key_missions,
+        candidate_profile=extracted.candidate_profile,
         description=raw_text,
     )
 
