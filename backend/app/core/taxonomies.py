@@ -92,6 +92,9 @@ DOMAIN_ALIASES = {
         "conseil",
         "cabinet de conseil",
         "consultant",
+        "accompagnement métier",
+        "ateliers clients",
+        "transformation",
     ],
     "software": [
         "software",
@@ -101,6 +104,11 @@ DOMAIN_ALIASES = {
         "api",
         "backend",
         "frontend",
+        "prototypage",
+        "prototyping",
+        "docker",
+        "postgresql",
+        "fastapi",
     ],
 }
 
