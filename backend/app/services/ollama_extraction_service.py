@@ -4,6 +4,9 @@ import requests
 
 from backend.app.schemas.opportunity import Opportunity
 from backend.app.schemas.opportunity_extraction import OpportunityExtraction
+from backend.app.services.extraction_enrichment_service import (
+    enrich_domains_with_taxonomies,
+)
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL_NAME = "qwen2.5:7b"
@@ -57,7 +60,10 @@ def extract_structured_opportunity(raw_text: str) -> OpportunityExtraction:
     prompt = build_extraction_prompt(raw_text)
     extracted = call_ollama(prompt)
 
-    return OpportunityExtraction(**extracted)
+    extraction = OpportunityExtraction(**extracted)
+    extraction = enrich_domains_with_taxonomies(raw_text, extraction)
+
+    return extraction
 
 
 def call_ollama(prompt: str) -> dict:
