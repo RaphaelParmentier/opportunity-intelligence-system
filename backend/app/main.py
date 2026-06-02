@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from backend.app.schemas.batch_score_request import BatchScoreRequest
+from backend.app.schemas.feedback_request import FeedbackRequest
 from backend.app.schemas.score_opportunity_request import (
     ScoreOpportunityRequest,
 )
@@ -8,6 +9,7 @@ from backend.app.schemas.score_request import ScoreRequest
 from backend.app.services.default_profile_service import (
     build_default_raphael_profile,
 )
+from backend.app.services.feedback_service import load_feedback, save_feedback_entry
 from backend.app.services.ollama_extraction_service import (
     extract_opportunity_with_ollama,
 )
@@ -125,4 +127,22 @@ def score_batch_with_default_profile(request: BatchScoreRequest):
     return {
         "count": len(results),
         "results": results,
+    }
+
+
+@app.post("/feedback")
+def create_feedback(request: FeedbackRequest):
+    entry = save_feedback_entry(request)
+
+    return {
+        "status": "saved",
+        "feedback": entry,
+    }
+
+
+@app.get("/feedback")
+def list_feedback():
+    return {
+        "count": len(load_feedback()),
+        "feedback": load_feedback(),
     }
