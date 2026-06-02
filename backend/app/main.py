@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from backend.app.schemas.batch_score_request import BatchScoreRequest
 from backend.app.schemas.score_opportunity_request import (
     ScoreOpportunityRequest,
 )
@@ -87,4 +88,41 @@ def score_raw_opportunity(
     return {
         "opportunity": opportunity.model_dump(),
         "scoring": scoring.model_dump(),
+    }
+
+
+@app.post("/score/batch/default")
+def score_batch_with_default_profile(request: BatchScoreRequest):
+    user_profile = build_default_raphael_profile()
+
+    results = []
+
+    for item in request.opportunities:
+        opportunity = extract_opportunity_with_ollama(
+            source=item.source,
+            source_url=item.source_url,
+            raw_text=item.raw_text,
+        )
+
+        scoring = score_opportunity(
+            opportunity=opportunity,
+            user_profile=user_profile,
+        )
+
+        results.append(
+            {
+                "opportunity": opportunity.model_dump(),
+                "scoring": scoring.model_dump(),
+            }
+        )
+
+    results = sorted(
+        results,
+        key=lambda result: result["scoring"]["overall_score"],
+        reverse=True,
+    )
+
+    return {
+        "count": len(results),
+        "results": results,
     }
