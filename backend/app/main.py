@@ -22,6 +22,19 @@ def healthcheck():
     }
 
 
+@app.post("/extract")
+def extract_raw_opportunity(request: ScoreRequest):
+    opportunity = extract_opportunity_with_ollama(
+        source=request.source,
+        source_url=request.source_url,
+        raw_text=request.raw_text,
+    )
+
+    return {
+        "opportunity": opportunity.model_dump(),
+    }
+
+
 @app.post("/score")
 def score_raw_opportunity(request: ScoreRequest):
     user_profile = build_default_user_profile()

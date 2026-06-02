@@ -25,6 +25,8 @@ Never invent information.
 Use English canonical labels when possible.
 
 Domain classification rules:
+- If the title is not explicitly provided, infer a concise job title from the description.
+For example: "Consultant IA senior", "Junior Data Analyst", "AI Trainer".
 - If the text mentions IA, AI, intelligence artificielle, generative AI, GenAI, LLM or machine learning, include "artificial_intelligence".
 - If the text mentions data, data science, analytics, statistics, machine learning or modeling, include "data_science".
 - If the text mentions santé, healthcare, pharma, biotech, clinical or life sciences, include "healthcare".
