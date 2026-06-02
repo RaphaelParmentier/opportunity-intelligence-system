@@ -6,5 +6,13 @@
     "action": "interested",
     "comment": "Très aligné avec mon profil IA, data, santé et conseil.",
     "created_at": "2026-06-02T08:54:46.569077"
+  },
+  {
+    "opportunity_title": "Consultant IA senior",
+    "source_url": "https://example.com/ai-consultant",
+    "overall_score": 99.75,
+    "action": "interested",
+    "comment": "Très aligné avec mon profil IA, data, santé et conseil.",
+    "created_at": "2026-06-02T09:00:50.790484"
   }
 ]

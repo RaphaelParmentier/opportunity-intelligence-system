@@ -9,7 +9,11 @@ from backend.app.schemas.score_request import ScoreRequest
 from backend.app.services.default_profile_service import (
     build_default_raphael_profile,
 )
-from backend.app.services.feedback_service import load_feedback, save_feedback_entry
+from backend.app.services.feedback_service import (
+    get_feedback_stats,
+    load_feedback,
+    save_feedback_entry,
+)
 from backend.app.services.ollama_extraction_service import (
     extract_opportunity_with_ollama,
 )
@@ -146,3 +150,8 @@ def list_feedback():
         "count": len(load_feedback()),
         "feedback": load_feedback(),
     }
+
+
+@app.get("/feedback/stats")
+def feedback_stats():
+    return get_feedback_stats()
