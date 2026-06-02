@@ -1,11 +1,16 @@
 from fastapi import FastAPI
 
+from backend.app.schemas.score_opportunity_request import (
+    ScoreOpportunityRequest,
+)
 from backend.app.schemas.score_request import ScoreRequest
 from backend.app.services.ollama_extraction_service import (
     extract_opportunity_with_ollama,
 )
 from backend.app.services.rule_based_scoring_service import score_opportunity
-from backend.app.test_pipeline import build_default_user_profile
+from backend.app.services.user_profile_service import (
+    build_user_profile,
+)
 
 app = FastAPI(
     title="Opportunity Intelligence System API",
@@ -36,8 +41,12 @@ def extract_raw_opportunity(request: ScoreRequest):
 
 
 @app.post("/score")
-def score_raw_opportunity(request: ScoreRequest):
-    user_profile = build_default_user_profile()
+def score_raw_opportunity(
+    request: ScoreOpportunityRequest,
+):
+    user_profile = build_user_profile(
+        request.profile,
+    )
 
     opportunity = extract_opportunity_with_ollama(
         source=request.source,
